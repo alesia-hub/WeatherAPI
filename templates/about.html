@@ -8,12 +8,14 @@
 <body>
     <nav>
         <a href="/">Home</a> |
-        <a href="/about">About</a>
+        <a href="/about">About</a> |
+        <a href="/word">Word Definition</a>
     </nav>
     <h1>About MyWeather API</h1>
     <p>MyWeather API is a simple API provides weather information for various locations around the world.</p>
-    <p>URL format: http://127.0.0.1:5001/api/v1/station/date</p>
-    <p>URL Example: http://127.0.0.1:5001/api/v1/10/18102025</p>
+    <p>URL format: http://127.0.0.1:5001/api/v1/weather/station/date</p>
+    <p>URL Example: http://127.0.0.1:5001/api/v1/weather/10/18102025</p>
+    <p>URL Example to get weather for the station: http://127.0.0.1:5001/api/v1/weather/10</p>
     <div>
         {{ data }}
     </div>

@@ -3,6 +3,7 @@ import requests
 
 app = Flask(__name__)
 
+# creating web pages:
 @app.route("/")
 def weather():
     return render_template("weather.html")
@@ -16,7 +17,7 @@ def wird_definition():
     return render_template("word.html")
 
 # now creating API:
-@app.route("/api/v1/<station>/<date>")
+@app.route("/api/v1/weather/<station>/<date>")
 def api_weather(station, date):
     return {
         "station": station,
@@ -25,9 +26,28 @@ def api_weather(station, date):
         "condition": "Sunny"
     }
 
-@app.route("/api/v1/<word>")
+@app.route("/api/v1/weather/<station>")
+def api_weather_station(station):
+    """
+    Function will only return raw json format response. 
+    In reality this should be processing some DB stored data and return proper response.
+    :param: station: weather station id
+    """
+    return {
+        "station": station,
+        "temperature": "22C",
+        "condition": "Sunny"
+    }
+
+@app.route("/api/v1/definition/<word>")
 def api_definition(word):
-    response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}")
+    """
+    Method will trigger dictionary API to fetch definition for a given word.
+    
+    :param word: word to fetch definition for
+    """
+    response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}",
+                            timeout=10)
     data = response.json()
     if data:
         definition = data[0]['meanings'][0]['definitions'][0]['definition']
